@@ -1,0 +1,48 @@
+$ curl -s --http1.0 http://localhost:18888/greeting
+<html><body>hello</body></html>
+
+--SERVER--
+GET /greeting HTTP/1.0
+Host: localhost:18888
+Connection: close
+Accept: */*
+User-Agent: curl/7.64.1
+
+$ curl -s -v --http1.0 http://localhost:18888/greeting
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 18888 (#0)
+> GET /greeting HTTP/1.0
+> Host: localhost:18888
+> User-Agent: curl/7.64.1
+> Accept: */*
+> 
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Date: Sun, 02 Feb 2020 11:53:50 GMT
+< Content-Length: 32
+< Content-Type: text/html; charset=utf-8
+< 
+{ [32 bytes data]
+* Closing connection 0
+<html><body>hello</body></html>
+
+$ curl -s -v --http1.0 -H "X-Test: Hello" http://localhost:18888/greeting
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 18888 (#0)
+> GET /greeting HTTP/1.0
+> Host: localhost:18888
+> User-Agent: curl/7.64.1
+> Accept: */*
+> X-Test: Hello
+> 
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Date: Sun, 02 Feb 2020 11:58:35 GMT
+< Content-Length: 32
+< Content-Type: text/html; charset=utf-8
+< 
+{ [32 bytes data]
+* Closing connection 0
+<html><body>hello</body></html>
